@@ -1,13 +1,16 @@
+import os
+import time
+
 import requests
 import telegram
-import os
 from dotenv import load_dotenv
 
 
 def get_response_json(dvmn_token, timestamp):
     url = 'https://dvmn.org/api/long_polling/'
+    send_token = 'Token {}'.format(dvmn_token)
     headers = {
-        'Authorization': f'Token {dvmn_token}'}
+        'Authorization': send_token}
     params = {'timestamp': timestamp}
     response = requests.get(url, headers=headers, params=params, timeout=90)
     response.raise_for_status()
@@ -19,13 +22,15 @@ def get_telegram_bot(chat_id, bot, new_attempts):
     lesson_title = lesson_info['lesson_title']
     lesson_url = lesson_info['lesson_url']
     bot.send_message(
-        text=f'У вас проверили работу "{lesson_title}"! \n'
-             f'Посмотреть результат проверки можно по ссылке https://dvmn.org{lesson_url}#review-tab',
+        text='''
+        У вас проверили работу "{}"! 
+        Посмотреть результат проверки можно по ссылке https://dvmn.org{}#review-tab
+        '''.format(lesson_title, lesson_url),
         chat_id=chat_id)
     if lesson_info['is_negative']:
         bot.send_message(text='К сожалению, в работе нашлись ошибки.', chat_id=chat_id)
     else:
-        bot.send_message(text='Преподавателю все понравилось, можно приступать к следующему уроку!')
+        bot.send_message(text='Преподавателю все понравилось, можно приступать к следующему уроку!', chat_id=chat_id)
 
 
 def main():
@@ -45,10 +50,9 @@ def main():
                 new_attempts = json_response['new_attempts']
                 get_telegram_bot(chat_id, bot, new_attempts)
         except requests.exceptions.ReadTimeout:
-            print('Проверенных работ нет. Повторный запуск бота.')
             continue
         except requests.ConnectionError:
-            print('Проблемы с подключением!')
+            time.sleep(30)
 
 
 if __name__ == '__main__':
