@@ -14,8 +14,7 @@ def get_response_json(dvmn_token, timestamp):
     return response.json()
 
 
-def telegram_bot(chat_id, bot_token, new_attempts):
-    bot = telegram.Bot(bot_token)
+def get_telegram_bot(chat_id, bot, new_attempts):
     lesson_info = new_attempts[0]
     lesson_title = lesson_info['lesson_title']
     lesson_url = lesson_info['lesson_url']
@@ -34,6 +33,7 @@ def main():
     chat_id = os.getenv('CHAT_ID')
     bot_token = os.getenv('TOKEN')
     dvmn_token = os.getenv('AUTH_TOKEN')
+    bot = telegram.Bot(bot_token)
     timestamp = None
     while True:
         try:
@@ -43,7 +43,7 @@ def main():
             else:
                 timestamp = json_response['last_attempt_timestamp']
                 new_attempts = json_response['new_attempts']
-                telegram_bot(chat_id, bot_token, new_attempts)
+                get_telegram_bot(chat_id, bot, new_attempts)
         except requests.exceptions.ReadTimeout:
             print('Проверенных работ нет. Повторный запуск бота.')
             continue
