@@ -17,7 +17,7 @@ def get_response_json(dvmn_token, timestamp):
     return response.json()
 
 
-def get_telegram_bot(chat_id, bot, new_attempts):
+def send_result_messages(chat_id, bot, new_attempts):
     lesson_info = new_attempts[0]
     lesson_title = lesson_info['lesson_title']
     lesson_url = lesson_info['lesson_url']
@@ -48,7 +48,7 @@ def main():
             else:
                 timestamp = json_response['last_attempt_timestamp']
                 new_attempts = json_response['new_attempts']
-                get_telegram_bot(chat_id, bot, new_attempts)
+                send_result_messages(chat_id, bot, new_attempts)
         except requests.exceptions.ReadTimeout:
             continue
         except requests.ConnectionError:
