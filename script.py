@@ -1,6 +1,6 @@
 import os
 import time
-
+import logging
 import requests
 import telegram
 from dotenv import load_dotenv
@@ -35,10 +35,13 @@ def send_result_messages(chat_id, bot, new_attempts):
 
 def main():
     load_dotenv()
+    logging.basicConfig(level=logging.DEBUG)
+    logging.debug('Сообщение уровня DEBUG')
     chat_id = os.getenv('CHAT_ID')
     bot_token = os.getenv('TOKEN')
     dvmn_token = os.getenv('AUTH_TOKEN')
     bot = telegram.Bot(bot_token)
+    logging.info('Бот запущен')
     timestamp = None
     while True:
         try:
@@ -48,6 +51,7 @@ def main():
             else:
                 timestamp = json_response['last_attempt_timestamp']
                 new_attempts = json_response['new_attempts']
+
                 send_result_messages(chat_id, bot, new_attempts)
         except requests.exceptions.ReadTimeout:
             continue
