@@ -53,6 +53,7 @@ def main():
                 new_attempts = json_response['new_attempts']
 
                 send_result_messages(chat_id, bot, new_attempts)
+                logging.info('Отправлено сообщение от бота')
         except requests.exceptions.ReadTimeout:
             continue
         except requests.ConnectionError:
