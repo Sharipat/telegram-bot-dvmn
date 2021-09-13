@@ -77,6 +77,8 @@ def main():
         except requests.ConnectionError:
             logger.error('Проблемы с соединением')
             time.sleep(30)
+        except Exception:
+            logging.exception()
 
 
 if __name__ == '__main__':
