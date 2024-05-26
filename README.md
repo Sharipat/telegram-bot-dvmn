@@ -1,35 +1,35 @@
-## Телеграм бот для отправки уведомлений
+## Telegram bot for sending notifications
 
-Данный бот отправляет пользователю уведомление в Телеграм, если его работа была проверена.
+This bot sends a notification to the user in Telegram if its work has been verified.
 
-## Запуск
+## Launch
 
-Скачайте код с [Github](https://github.com/Shirlusha/dvmn-telegram-bot)
+Download the code from [Github](https://github.com/Sharipat/dvmn-telegram-bot)
 
-Установите зависимости командой
+Install dependencies with the command
 
 ```
- pip install -r requirements.txt
- ```
+  pip install -r requirements.txt
+  ```
 
-В корне папки создайте файл ```.env```, в который впишите
+In the root of the folder, create a file ```.env```, in which write
 
-``` AUTH_TOKEN ``` - ваш токен для авторизации на [Девман](https://dvmn.org/api/docs/)
+``` AUTH_TOKEN ``` - your token for authorization on [Devman](https://dvmn.org/api/docs/)
 
-```TOKEN``` - токен вашего бота от [BotFather](https://telegram.me/BotFather)
+```TOKEN``` - your bot token from [BotFather](https://telegram.me/BotFather)
 
-``` CHAT_ID  ``` - ID для чата с ботом [userinfobot](https://telegram.me/userinfobot)
+``` CHAT_ID ``` - ID for chat with the bot [userinfobot](https://telegram.me/userinfobot)
 
-Запустите сайт командой
- ```
-  python3 script.py
- ```
+Launch the site with the command
+  ```
+   python3 script.py
+  ```
 
 
-## Пример уведомлений
+## Example notifications
 
- ![screenshot](/screenshot-bot.png)
+  ![screenshot](/screenshot-bot.png)
 
-## Цели проекта
+## Project goals
 
-Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).
+The code is written for educational purposes - this is a lesson in the course on Python and web development on the site [Devman](https://dvmn.org).
